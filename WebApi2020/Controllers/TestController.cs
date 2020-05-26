@@ -14,7 +14,7 @@ namespace WebApi2020.Controllers
         [Route("[action]")]
         public string S1()
         {
-            return " master S1";
+            return " master 11S1";
         }
     }
 }
