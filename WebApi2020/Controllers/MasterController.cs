@@ -11,5 +11,9 @@ namespace WebApi2020.Controllers
     [ApiController]
     public class MasterController : ControllerBase
     {
+        public string test()
+        {
+            return "test";
+        }
     }
 }
