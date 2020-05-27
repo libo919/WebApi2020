@@ -20,7 +20,6 @@ namespace WebApi2020.DB
         {
             string conn = string.Empty;
             conn = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DB199");
-            //conn = "Data Source=192.168.0.199;Initial Catalog=TestDB;User ID=admin;Password=Sjtu@52580988";
             optionsBuilder.UseSqlServer(conn);
         }
 

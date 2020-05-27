@@ -14,5 +14,7 @@ namespace WebApi2020.DB.Models
         public int Id { get; set; }
 
         public string name { get; set; } = string.Empty;
+
+        public int Del { get; set; }
     }
 }

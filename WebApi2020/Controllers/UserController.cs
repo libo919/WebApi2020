@@ -25,7 +25,7 @@ namespace WebApi2020.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.User.ToListAsync();
+            return await _context.User.Where(x => x.Del != 1).ToListAsync();
         }
 
         // GET: api/User/5
@@ -78,9 +78,8 @@ namespace WebApi2020.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(string name)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            User user = new User() { name = name };
             _context.User.Add(user);
             await _context.SaveChangesAsync();
             _context.Entry(user);
@@ -96,8 +95,8 @@ namespace WebApi2020.Controllers
             {
                 return NotFound();
             }
-
-            _context.User.Remove(user);
+            user.Del = 1;
+            _context.User.Update(user);
             await _context.SaveChangesAsync();
 
             return user;
