@@ -20,6 +20,11 @@ namespace WebApi2020.Controllers
             db = context;
         }
 
+        /// <summary>
+        /// 测试S1
+        /// </summary>
+        /// <returns>结果字符串</returns>
+        [HttpPost]
         [Route("[action]")]
         public string S1()
         {
@@ -33,6 +38,7 @@ namespace WebApi2020.Controllers
         }
 
 
+        [HttpPost]
         [Route("[action]")]
         public string S2()
         {
@@ -61,6 +67,7 @@ namespace WebApi2020.Controllers
             }
         }
 
+        [HttpPost]
         [Route("[action]")]
         public ActionResult<User> S4()
         {
@@ -78,6 +85,7 @@ namespace WebApi2020.Controllers
         }
 
 
+        [HttpPost]
         [Route("[action]")]
         public string SqlTable()
         {

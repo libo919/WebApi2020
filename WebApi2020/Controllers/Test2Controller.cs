@@ -19,14 +19,15 @@ namespace WebApi2020.Controllers
         private readonly ModelContext _context;
         private readonly SqlContext _sqlcontext;
 
-        public Test2Controller(ModelContext context)
+        public Test2Controller(ModelContext context, SqlContext sqlcontext)
         {
             _context = context;
+            _sqlcontext = sqlcontext;
         }
 
-
-        // POST: Test2/GetListByName
         [HttpPost]
+        [Route("[action]")]
+        // POST: Test2/GetListByName
         public List<User> GetListByName(string name)
         {
             //使用sql封装User
@@ -39,13 +40,14 @@ namespace WebApi2020.Controllers
                         {
                             Id = x.Field<int>("id"),
                             Name = x.Field<string>("name"),
-                            Del = x.Field<int>("Del"),
+                            Del = x.Field<int>("Del")
                         };
             return users.ToList();
         }
 
         // POST: Test2/GetListByName
         [HttpPost]
+        [Route("[action]")]
         public List<User> GetListByName2(string name)
         {
             //使用EF读取
@@ -55,6 +57,7 @@ namespace WebApi2020.Controllers
 
         // POST: Test2/GetListByName
         [HttpPost]
+        [Route("[action]")]
         public async Task<ActionResult<List<User>>> GetListByName3(string name)
         {
             //使用EF读取，使用异步
