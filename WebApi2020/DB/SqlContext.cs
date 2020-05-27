@@ -1,13 +1,18 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace WebApi2020.DB
 {
-    public partial class MyContext : DbContext
+    public partial class SqlContext : DbContext
     {
-        public MyContext(DbContextOptions<MyContext> options)
+        public SqlContext(DbContextOptions<SqlContext> options)
             : base(options)
         {
         }
@@ -58,9 +63,5 @@ namespace WebApi2020.DB
             return SqlSingle(sql, list.ToArray());
         }
         #endregion
-
-        public DbSet<WebApi2020.Models.User> User { get; set; }
-
-        public DbSet<WebApi2020.Models.SysUser> SysUser { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi2020
 {
@@ -25,6 +26,12 @@ namespace WebApi2020
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<WebApi2020.DB.MyContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TestDB")), ServiceLifetime.Scoped);
+            services.AddDbContext<WebApi2020.DB.ModelContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TestDB")), ServiceLifetime.Scoped);
+            services.AddDbContext<WebApi2020.DB.SqlContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TestDB")), ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

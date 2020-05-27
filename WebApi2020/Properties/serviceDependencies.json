@@ -2,6 +2,14 @@
   "dependencies": {
     "secrets1": {
       "type": "secrets"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "UserContext"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "XJHContext"
     }
   }
 }

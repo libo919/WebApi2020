@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApi2020.DB.Models
+namespace WebApi2020.Models
 {
     [Table("User")]
     public class User
@@ -13,7 +13,7 @@ namespace WebApi2020.DB.Models
         [Key]
         public int Id { get; set; }
 
-        public string name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         public int Del { get; set; }
     }

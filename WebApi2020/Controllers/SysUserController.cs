@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi2020.DB;
@@ -8,49 +10,50 @@ using WebApi2020.Models;
 
 namespace WebApi2020.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class SysUserController : ControllerBase
     {
-        private readonly MyContext _context;
+        private readonly ModelContext _context;
 
-        public UserController(MyContext context)
+        public SysUserController(ModelContext context)
         {
             _context = context;
         }
-        // GET: api/User
+
+        // GET: api/SysUser
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<SysUser>>> GetSysUser()
         {
-            return await _context.User.Where(x => x.Del != 1).ToListAsync();
+            return await _context.SysUser.ToListAsync();
         }
 
-        // GET: api/User/5
+        // GET: api/SysUser/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<SysUser>> GetSysUser(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var sysUser = await _context.SysUser.FindAsync(id);
 
-            if (user == null)
+            if (sysUser == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return sysUser;
         }
 
-        // PUT: api/User/5
+        // PUT: api/SysUser/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
+        public async Task<IActionResult> PutSysUser(int id, SysUser sysUser)
         {
-            if (id != user.Id)
+            if (id != sysUser.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(sysUser).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +61,7 @@ namespace WebApi2020.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!SysUserExists(id))
                 {
                     return NotFound();
                 }
@@ -71,37 +74,37 @@ namespace WebApi2020.Controllers
             return NoContent();
         }
 
-        // POST: api/User
+        // POST: api/SysUser
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<SysUser>> PostSysUser(SysUser sysUser)
         {
-            _context.User.Add(user);
+            _context.SysUser.Add(sysUser);
             await _context.SaveChangesAsync();
-            _context.Entry(user);
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+
+            return CreatedAtAction("GetSysUser", new { id = sysUser.ID }, sysUser);
         }
 
-        // DELETE: api/User/5
+        // DELETE: api/SysUser/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<SysUser>> DeleteSysUser(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            var sysUser = await _context.SysUser.FindAsync(id);
+            if (sysUser == null)
             {
                 return NotFound();
             }
-            user.Del = 1;
-            _context.User.Update(user);
+
+            _context.SysUser.Remove(sysUser);
             await _context.SaveChangesAsync();
 
-            return user;
+            return sysUser;
         }
 
-        private bool UserExists(int id)
+        private bool SysUserExists(int id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.SysUser.Any(e => e.ID == id);
         }
     }
 }
