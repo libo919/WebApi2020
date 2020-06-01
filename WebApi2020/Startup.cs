@@ -11,6 +11,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using WebApi2020.Models;
+using WebApi2020.DB;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WebApi2020
 {
@@ -26,7 +31,21 @@ namespace WebApi2020
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddAuthentication("MyJwt")
+                .AddJwtBearer("MyJwt", config =>
+                {
+                    var issuer = Configuration["JwtSettings:Issuer"];
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSettings:Secret"]));
+                    config.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidIssuer = issuer,
+                        IssuerSigningKey = key,
+                        ValidateLifetime = true,
+                        ValidateAudience = false,
+                    };
+                });
+
+            services.AddControllersWithViews();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
@@ -34,12 +53,12 @@ namespace WebApi2020
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
 
-            services.AddDbContext<WebApi2020.DB.MyContext>(options =>
+            services.AddDbContext<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
-            services.AddDbContext<WebApi2020.DB.ModelContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
-            services.AddDbContext<WebApi2020.DB.SqlContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
+            //services.AddDbContext<ModelContext>(options =>                    options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
+            //services.AddDbContext<SqlContext>(options =>                    options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
+            services.Configure<JwtSettings>(Configuration.GetSection("JwtSettings"));
+            services.Configure<List<ApiUser>>(Configuration.GetSection("APIUsers"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +81,7 @@ namespace WebApi2020
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

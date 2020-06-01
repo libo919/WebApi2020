@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi2020.DB;
@@ -8,6 +9,7 @@ using WebApi2020.Models;
 
 namespace WebApi2020.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -25,6 +27,7 @@ namespace WebApi2020.Controllers
             return await _context.User.Where(x => x.Del != 1).ToListAsync();
         }
 
+        [AllowAnonymous]
         // GET: api/User/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
