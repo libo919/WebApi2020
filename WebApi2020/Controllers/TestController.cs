@@ -9,7 +9,7 @@ using WebApi2020.Models;
 
 namespace WebApi2020.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class TestController : ControllerBase
     {
@@ -25,7 +25,6 @@ namespace WebApi2020.Controllers
         /// </summary>
         /// <returns>结果字符串</returns>
         [HttpPost]
-        [Route("[action]")]
         public string S1()
         {
             //添加测试数据
@@ -39,7 +38,6 @@ namespace WebApi2020.Controllers
 
 
         [HttpPost]
-        [Route("[action]")]
         public string S2()
         {
             //linq查询
@@ -57,7 +55,6 @@ namespace WebApi2020.Controllers
 
         //强制要求post方式提交请求
         [HttpPost]
-        [Route("[action]")]
         public User S3(int id)
         {
             //Lambda表达式查询，返回实体对象
@@ -68,7 +65,6 @@ namespace WebApi2020.Controllers
         }
 
         [HttpPost]
-        [Route("[action]")]
         public ActionResult<User> S4()
         {
             //返回标准http响应
@@ -86,7 +82,6 @@ namespace WebApi2020.Controllers
 
 
         [HttpPost]
-        [Route("[action]")]
         public string SqlTable()
         {
             //执行sql查询

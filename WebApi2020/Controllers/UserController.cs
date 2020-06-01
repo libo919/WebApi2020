@@ -10,7 +10,7 @@ using WebApi2020.Models;
 namespace WebApi2020.Controllers
 {
     [Authorize]
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class UserController : ControllerBase
     {
