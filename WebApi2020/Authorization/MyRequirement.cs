@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApi2020.Models;
+using WebApi2020.Models.AuthModels;
 
 namespace WebApi2020.Authorization
 {

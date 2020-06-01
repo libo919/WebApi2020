@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApi2020.Models
+namespace WebApi2020.Models.AuthModels
 {
-    public class JwtSettings
+    public class ApiUser
     {
+        public string UID { get; set; }
         /// <summary>
         /// 
         /// </summary>
-        public string Issuer { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Audience { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 
         /// </summary>
