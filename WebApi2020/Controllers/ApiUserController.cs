@@ -12,6 +12,9 @@ using WebApi2020.Models.AuthModels;
 
 namespace WebApi2020.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     [Route("[controller]/[action]")]
     [ApiController]
@@ -19,15 +22,24 @@ namespace WebApi2020.Controllers
     {
         private readonly JwtSettings _jwtSettings;
         private readonly List<ApiUser> _apiUsers;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="jwtSettings"></param>
+        /// <param name="apiUsers"></param>
         public ApiUserController(IOptions<JwtSettings> jwtSettings, IOptions<List<ApiUser>> apiUsers)
         {
             _jwtSettings = jwtSettings.Value;
             _apiUsers = apiUsers.Value;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Tkoen(ApiUser user)
+        public IActionResult Token(ApiUser user)
         {
             var apiuser = _apiUsers.SingleOrDefault(x => x.UID == user.UID);
 
@@ -51,9 +63,12 @@ namespace WebApi2020.Controllers
             string Token = tokenHandler.WriteToken(token);
             return Ok(new { token = Token });
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
-        public IActionResult ReTkoen()
+        public IActionResult ReToken()
         {
             try
             {
@@ -79,7 +94,7 @@ namespace WebApi2020.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("权限不足");
+                return BadRequest(ex.Message);
             }
         }
     }

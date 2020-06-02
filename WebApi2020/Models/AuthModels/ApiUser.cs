@@ -5,8 +5,14 @@ using System.Threading.Tasks;
 
 namespace WebApi2020.Models.AuthModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ApiUser
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string UID { get; set; }
         /// <summary>
         /// 

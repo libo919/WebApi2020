@@ -13,18 +13,39 @@ using WebApi2020.Models.AuthModels;
 
 namespace WebApi2020
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+
+            services.AddMvc();
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
+
             services.AddAuthentication("MyJwt")
                 .AddJwtBearer("MyJwt", config =>
                 {
@@ -39,14 +60,6 @@ namespace WebApi2020
                     };
                 });
 
-            services.AddControllersWithViews();
-
-            // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
-
             services.AddDbContext<MyContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
             //services.AddDbContext<ModelContext>(options =>                    options.UseSqlServer(Configuration.GetConnectionString("XJHDB")), ServiceLifetime.Scoped);
@@ -55,6 +68,9 @@ namespace WebApi2020
             services.Configure<List<ApiUser>>(Configuration.GetSection("APIUsers"));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

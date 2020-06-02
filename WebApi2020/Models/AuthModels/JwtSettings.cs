@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApi2020.Models.AuthModels
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class JwtSettings
     {
         /// <summary>

@@ -2,6 +2,9 @@
 
 namespace WebApi2020.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SysDepartment
     {
         /// <summary>

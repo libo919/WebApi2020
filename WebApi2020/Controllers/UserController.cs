@@ -9,6 +9,9 @@ using WebApi2020.Models;
 
 namespace WebApi2020.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Authorize]
     [Route("[controller]/[action]")]
     [ApiController]
@@ -16,10 +19,17 @@ namespace WebApi2020.Controllers
     {
         private readonly MyContext _context;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public UserController(MyContext context)
         {
             _context = context;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         // GET: api/User
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
@@ -27,6 +37,11 @@ namespace WebApi2020.Controllers
             return await _context.User.Where(x => x.Del != 1).ToListAsync();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         // GET: api/User/5
         [HttpGet("{id}")]
@@ -42,6 +57,9 @@ namespace WebApi2020.Controllers
             return user;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // PUT: api/User/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -74,6 +92,9 @@ namespace WebApi2020.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // POST: api/User
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
@@ -86,6 +107,9 @@ namespace WebApi2020.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         // DELETE: api/User/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
@@ -102,6 +126,9 @@ namespace WebApi2020.Controllers
             return user;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private bool UserExists(int id)
         {
             return _context.User.Any(e => e.Id == id);

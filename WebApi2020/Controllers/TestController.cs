@@ -9,12 +9,18 @@ using WebApi2020.Models;
 
 namespace WebApi2020.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("[controller]/[action]")]
     [ApiController]
     public class TestController : ControllerBase
     {
         private readonly MyContext db;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TestController(MyContext context)
         {
             db = context;
@@ -37,6 +43,9 @@ namespace WebApi2020.Controllers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         [HttpPost]
         public string S2()
         {
@@ -53,6 +62,9 @@ namespace WebApi2020.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         //强制要求post方式提交请求
         [HttpPost]
         public User S3(int id)
@@ -64,6 +76,9 @@ namespace WebApi2020.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [HttpPost]
         public ActionResult<User> S4()
         {
@@ -81,6 +96,9 @@ namespace WebApi2020.Controllers
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
         [HttpPost]
         public string SqlTable()
         {

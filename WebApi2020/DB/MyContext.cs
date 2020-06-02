@@ -5,13 +5,22 @@ using System.Data;
 
 namespace WebApi2020.DB
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MyContext : DbContext
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public MyContext(DbContextOptions<MyContext> options)
             : base(options)
         {
         }
         #region 支持SQL操作
+        /// <summary>
+        /// 
+        /// </summary>
         private DataTable SqlQuery(string sql, params SqlParameter[] parameters)
         {
             using (var conn = base.Database.GetDbConnection())
@@ -28,6 +37,9 @@ namespace WebApi2020.DB
                 return dt;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public DataTable SqlQuery(string sql, List<SqlParameter> list = null)
         {
             if (list == null)
@@ -36,6 +48,9 @@ namespace WebApi2020.DB
             }
             return SqlQuery(sql, list.ToArray());
         }
+        /// <summary>
+        /// 
+        /// </summary>
         private object SqlSingle(string sql, params SqlParameter[] parameters)
         {
             using (var conn = base.Database.GetDbConnection())
@@ -49,6 +64,9 @@ namespace WebApi2020.DB
                 return obj;
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public object SqlSingle(string sql, List<SqlParameter> list = null)
         {
             if (list == null)
@@ -59,8 +77,14 @@ namespace WebApi2020.DB
         }
         #endregion
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DbSet<WebApi2020.Models.User> User { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DbSet<WebApi2020.Models.SysUser> SysUser { get; set; }
     }
 }

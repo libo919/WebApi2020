@@ -2,6 +2,9 @@
 
 namespace WebApi2020.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SysUserDetail
     {
         /// <summary>
@@ -10,6 +13,9 @@ namespace WebApi2020.Models
         [Key]
         public int ID { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
 
         public SysUser SysUser { get; set; }
     }
